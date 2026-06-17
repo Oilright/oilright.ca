@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OilRight — Mobile Oil Changes</title>
+  <meta name="description" content="Professional mobile oil changes in Greater Moncton. We come to you — at your home, your office, or wherever works for you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #F5A623;
+      --gold-dark: #D4891A;
+      --text-dark: #1A1A1A;
+      --text-mid: #4A4A4A;
+      --text-light: #6B6B6B;
+      --border: #E8E8E8;
+      --bg: #FFFFFF;
+      --section-alt: #FAFAFA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav img.nav-logo {
+      height: 36px;
+      width: auto;
+    }
+
+    .lang-toggle {
+      background: none;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-toggle:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 96px 32px 80px;
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-logo {
+      width: min(280px, 70vw);
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-mid);
+      max-width: 540px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+
+    .btn-book {
+      position: relative;
+      display: inline-block;
+    }
+
+    .btn-book-link {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 8px;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-book-link:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 72px 32px;
+    }
+
+    .section-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    section p {
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .alt-bg { background: var(--section-alt); }
+
+    .who-closing {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      border-top: 2px solid var(--gold);
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 32px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      padding-top: 6px;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+    }
+
+    .step-comment {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 4px;
+    }
+
+    /* ── WHO WE ARE ── */
+    .who-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    /* ── SERVICE AREA ── */
+    .area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .area-tag {
+      background: #FFF8EC;
+      border: 1.5px solid var(--gold);
+      color: var(--gold-dark);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 24px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--gold);
+      background: #FFF8EC;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .footer-social a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 12px 20px; }
+      .hero { padding: 64px 20px 60px; }
+      section { padding: 56px 20px; }
+      footer { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="./logo.png" alt="OilRight Mobile Oil Changes" class="nav-logo" />
+  <button class="lang-toggle" id="langBtn" onclick="toggleLang()">FR</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:80px;padding-bottom:72px;">
+  <img src="./logo.png" alt="OilRight Mobile Oil Changes" class="hero-logo" />
+  <h1 data-en="We come to <span>you.</span>" data-fr="On se déplace <span>chez vous.</span>"></h1>
+  <p class="hero-sub" data-en="Professional mobile oil changes in Greater Moncton — at your home, your office, or wherever works for you." data-fr="Vidanges d'huile mobiles professionnelles dans le Grand Moncton — à votre domicile, au bureau, ou où vous convient."></p>
+  <p class="hero-tagline" data-en="A service built around your schedule." data-fr="Un service bâti autour de votre horaire."></p>
+
+  <div class="btn-book">
+    <a href="#contact" class="btn-book-link" data-en="Book Now" data-fr="Réserver"></a>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="alt-bg">
+  <div class="section-inner">
+    <p class="section-label" data-en="What We Do" data-fr="Ce qu'on fait"></p>
+    <h2 data-en="No garage. No waiting." data-fr="Pas de garage. Pas d'attente."></h2>
+    <p data-en="Skip the garage. We bring everything needed to perform a full oil and filter change right where you are." data-fr="Oubliez le garage. On apporte tout ce qu'il faut pour effectuer une vidange et un changement de filtre complets là où vous êtes."></p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-inner">
+    <p class="section-label" data-en="How It Works" data-fr="Comment ça marche"></p>
+    <h2 data-en="Three steps. That's it." data-fr="Trois étapes. C'est tout."></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text" data-en="Contact us to book your appointment." data-fr="Contactez-nous pour prendre rendez-vous."></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text" data-en="We show up at your location with everything needed." data-fr="On arrive à votre emplacement avec tout le nécessaire."></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text" data-en="Fresh synthetic oil and filter change — done." data-fr="Huile synthétique fraîche et filtre changé — c'est fait."></div>
+      </div>
+    </div>
+    <p class="step-comment" data-en="No disruption to your day — your schedule stays yours." data-fr="Aucune perturbation à votre journée — votre horaire reste le vôtre."></p>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="alt-bg">
+  <div class="section-inner">
+    <p class="section-label" data-en="Who We Are" data-fr="Qui sommes-nous"></p>
+    <h2 data-en="Built on precision." data-fr="Bâti sur la précision."></h2>
+    <div class="who-grid">
+      <p data-en="OilRight was created to make oil changes simple, reliable, and professional." data-fr="OilRight a été créé pour rendre les vidanges d'huile simples, fiables et professionnelles."></p>
+      <p data-en="Built by a mechanical engineering graduate and lifelong student-athlete, this service is driven by precision, attention to detail, and doing things the right way." data-fr="Fondé par un diplômé en génie mécanique et athlète de longue date, ce service est guidé par la précision, le souci du détail et le désir de bien faire les choses."></p>
+      <p data-en="The mission is simple: bring a full synthetic oil and filter change directly to you — without the wait, without the hassle, and without shortcuts." data-fr="La mission est simple : vous apporter une vidange et un changement de filtre complets — sans attente, sans tracas, et sans raccourcis."></p>
+      <p class="who-closing" data-en="Professional service built around your schedule. Done properly." data-fr="Un service professionnel bâti autour de votre horaire. Fait correctement."></p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section>
+  <div class="section-inner">
+    <p class="section-label" data-en="Service Area" data-fr="Zone de service"></p>
+    <h2 data-en="Proudly serving Greater Moncton." data-fr="Fièrement au service du Grand Moncton."></h2>
+    <div class="area-tags">
+      <span class="area-tag">Moncton</span>
+      <span class="area-tag">Dieppe</span>
+      <span class="area-tag">Riverview</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="alt-bg" id="contact">
+  <div class="section-inner">
+    <p class="section-label" data-en="Get In Touch" data-fr="Contactez-nous"></p>
+    <h2 data-en="Ready to book?" data-fr="Prêt à réserver ?"></h2>
+    <p data-en="Reach out on Instagram, Facebook, or by email — we'll get back to you quickly." data-fr="Écrivez-nous sur Instagram, Facebook ou par courriel — on vous répond rapidement."></p>
+    <div class="contact-links">
+      <a href="https://www.instagram.com/oilrightnb" target="_blank" rel="noopener" class="contact-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#E1306C" stroke="none"/></svg>
+        @oilrightnb
+      </a>
+      <a href="https://www.facebook.com/oilrightnb" target="_blank" rel="noopener" class="contact-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.927-1.956 1.876v2.255h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        OilRight Mobile Oil Changes
+      </a>
+      <a href="mailto:oilrightmobileoilchanges@gmail.com" class="contact-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        oilrightmobileoilchanges@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/oilrightnb" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/oilrightnb" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.tiktok.com/@oilrightnb" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p class="footer-copy">© 2025 OilRight Mobile Oil Changes · oilright.ca</p>
+</footer>
+
+<script>
+  let lang = 'en';
+
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('langBtn').textContent = l === 'en' ? 'FR' : 'EN';
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + l);
+      if (val) el.innerHTML = val;
+    });
+  }
+
+  function toggleLang() {
+    setLang(lang === 'en' ? 'fr' : 'en');
+  }
+
+  // Init English
+  setLang('en');
+</script>
+
+</body>
+</html>
