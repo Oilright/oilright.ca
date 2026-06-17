@@ -270,6 +270,84 @@
       background: #FFF8EC;
     }
 
+    /* ── WHY OILRIGHT ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .compare-col-header {
+      padding: 16px 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .compare-col-header.grey {
+      background: #F0F0F0;
+      color: #888;
+      border-bottom: 1px solid #DCDCDC;
+    }
+
+    .compare-col-header.color {
+      background: var(--gold);
+      color: #fff;
+      border-bottom: 1px solid var(--gold-dark);
+    }
+
+    .compare-col-header.color img {
+      height: 28px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .compare-row {
+      display: contents;
+    }
+
+    .compare-cell {
+      padding: 18px 20px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-row:last-child .compare-cell {
+      border-bottom: none;
+    }
+
+    .compare-cell.grey {
+      background: #FAFAFA;
+      color: #888;
+    }
+
+    .compare-cell.color {
+      background: #FFFBF2;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .compare-cell .icon {
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .compare-cell { padding: 14px 14px; font-size: 0.88rem; }
+      .compare-col-header { padding: 12px 14px; }
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -319,25 +397,72 @@
 <section class="hero" style="padding-top:80px;padding-bottom:72px;">
 
   <h1 data-en="We come to <span>you.</span>" data-fr="On se déplace <span>chez vous.</span>"></h1>
-  <p class="hero-sub" data-en="Professional mobile oil changes in Greater Moncton — at your home, your office, or wherever works for you." data-fr="Vidanges d'huile mobiles professionnelles dans le Grand Moncton — à votre domicile, au bureau, ou où vous convient."></p>
+  <p class="hero-sub" data-en="Professional mobile synthetic oil and filter changes in Greater Moncton — at your home, your office, or wherever works for you." data-fr="Changements d'huile synthétique et de filtre mobiles professionnels dans le Grand Moncton — à votre domicile, au bureau, ou à l'endroit qui vous convient."></p>
   <p class="hero-tagline" data-en="A service built around your schedule." data-fr="Un service bâti autour de votre horaire."></p>
 
   <div class="btn-book">
-    <a href="#contact" class="btn-book-link" data-en="Book Now" data-fr="Réserver"></a>
+    <a href="#contact" class="btn-book-link" data-en="Book Now" data-fr="Contactez-nous"></a>
+  </div>
+</section>
+
+<!-- WHY OILRIGHT -->
+<section class="alt-bg">
+  <div class="section-inner" style="max-width:760px;">
+    <p class="section-label" data-en="Why OilRight" data-fr="Pourquoi OilRight"></p>
+    <h2 data-en="A different kind of service." data-fr="Un service différent."></h2>
+
+    <div class="compare-grid">
+
+      <!-- Headers -->
+      <div class="compare-col-header grey" data-en="Garage & Drive-In Services" data-fr="Garage et services sans rendez-vous"></div>
+      <div class="compare-col-header color" data-en="OilRight — Synthetic Oil" data-fr="OilRight — Huile synthétique"></div>
+
+      <!-- Row 1 -->
+      <div class="compare-cell grey">
+        <span class="icon">✗</span>
+        <span data-en="Drive there, sit and wait" data-fr="S'y rendre et attendre"></span>
+      </div>
+      <div class="compare-cell color">
+        <span class="icon" style="color:var(--gold);">✓</span>
+        <span data-en="We come to you — home, office, wherever" data-fr="On se déplace — domicile, bureau, où vous voulez"></span>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="compare-cell grey">
+        <span class="icon">✗</span>
+        <span data-en="Lose your car for hours" data-fr="Se passer de sa voiture pendant des heures"></span>
+      </div>
+      <div class="compare-cell color">
+        <span class="icon" style="color:var(--gold);">✓</span>
+        <span data-en="Service done while your car is already sitting — no waiting" data-fr="Le service est fait lorsque vous n'utilisez pas votre véhicule, pas d'attente"></span>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="compare-cell grey">
+        <span class="icon">✗</span>
+        <span data-en="Work around their hours" data-fr="S'adapter à leurs horaires"></span>
+      </div>
+      <div class="compare-cell color">
+        <span class="icon" style="color:var(--gold);">✓</span>
+        <span data-en="Book around your schedule — your time is valuable" data-fr="Réservez selon votre horaire — votre temps est précieux"></span>
+      </div>
+
+    </div>
+    <p style="margin-top:24px; font-size:1rem; color:var(--text-light); font-style:italic;" data-en="Keep doing what you do. OilRight handles the rest — because your day is too full to slow down for a garage." data-fr="Continuez vos tâches quotidiennes. OilRight s'occupe du reste — parce que votre journée est trop chargée pour s'arrêter à un garage."></p>
   </div>
 </section>
 
 <!-- WHAT WE DO -->
-<section class="alt-bg">
+<section>
   <div class="section-inner">
     <p class="section-label" data-en="What We Do" data-fr="Ce qu'on fait"></p>
     <h2 data-en="No garage. No waiting." data-fr="Pas de garage. Pas d'attente."></h2>
-    <p data-en="Skip the garage. We bring everything needed to perform a full oil and filter change right where you are." data-fr="Oubliez le garage. On apporte tout ce qu'il faut pour effectuer une vidange et un changement de filtre complets là où vous êtes."></p>
+    <p data-en="Skip the garage. We bring everything needed to perform a full synthetic oil and filter change right where you are." data-fr="Oubliez le garage. On apporte tout ce qu'il faut pour effectuer un changement d'huile synthétique et filtre complet là où vous êtes."></p>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section>
+<section class="alt-bg">
   <div class="section-inner">
     <p class="section-label" data-en="How It Works" data-fr="Comment ça marche"></p>
     <h2 data-en="Three steps. That's it." data-fr="Trois étapes. C'est tout."></h2>
@@ -359,20 +484,6 @@
   </div>
 </section>
 
-<!-- WHO WE ARE -->
-<section class="alt-bg">
-  <div class="section-inner">
-    <p class="section-label" data-en="Who We Are" data-fr="Qui sommes-nous"></p>
-    <h2 data-en="Built on precision." data-fr="Bâti sur la précision."></h2>
-    <div class="who-grid">
-      <p data-en="OilRight was created to make oil changes simple, reliable, and professional." data-fr="OilRight a été créé pour rendre les vidanges d'huile simples, fiables et professionnelles."></p>
-      <p data-en="Built by a mechanical engineering graduate and lifelong student-athlete, this service is driven by precision, attention to detail, and doing things the right way." data-fr="Fondé par un diplômé en génie mécanique et athlète de longue date, ce service est guidé par la précision, le souci du détail et le désir de bien faire les choses."></p>
-      <p data-en="The mission is simple: bring a full synthetic oil and filter change directly to you — without the wait, without the hassle, and without shortcuts." data-fr="La mission est simple : vous apporter une vidange et un changement de filtre complets — sans attente, sans tracas, et sans raccourcis."></p>
-      <p class="who-closing" data-en="Professional service built around your schedule. Done properly." data-fr="Un service professionnel bâti autour de votre horaire. Fait correctement."></p>
-    </div>
-  </div>
-</section>
-
 <!-- SERVICE AREA -->
 <section>
   <div class="section-inner">
@@ -382,6 +493,20 @@
       <span class="area-tag">Moncton</span>
       <span class="area-tag">Dieppe</span>
       <span class="area-tag">Riverview</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="alt-bg">
+  <div class="section-inner">
+    <p class="section-label" data-en="Who We Are" data-fr="Qui sommes-nous"></p>
+    <h2 data-en="Built on precision." data-fr="Bâti sur la précision."></h2>
+    <div class="who-grid">
+      <p data-en="OilRight was created to make oil changes simple, reliable, and professional." data-fr="OilRight a été créé pour rendre les changements d'huile simples, fiables et professionnels."></p>
+      <p data-en="Built by a mechanical engineering graduate and lifelong student-athlete, this service is driven by precision, attention to detail, and doing things the right way." data-fr="Fondé par un diplômé en génie mécanique et étudiant-athlète de longue date, ce service est guidé par la précision, le souci du détail et le désir de bien faire les choses."></p>
+      <p data-en="The mission is simple: bring a full synthetic oil and filter change directly to you — without the wait, without the hassle, and without shortcuts." data-fr="La mission est simple : vous apporter un changement d'huile synthétique et filtre complet — sans attente, sans tracas, et sans raccourcis."></p>
+      <p class="who-closing" data-en="Professional service built around your schedule. Done properly." data-fr="Un service professionnel bâti autour de votre horaire. Fait correctement."></p>
     </div>
   </div>
 </section>
