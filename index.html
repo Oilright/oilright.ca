@@ -175,6 +175,32 @@
       margin-top: 8px;
     }
 
+    /* ── SERVICE LIST ── */
+    .service-list {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .service-list li {
+      position: relative;
+      padding-left: 28px;
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .service-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
     /* ── HOW IT WORKS ── */
     .steps {
       display: flex;
@@ -458,6 +484,12 @@
     <p class="section-label" data-en="What We Do" data-fr="Ce qu'on fait"></p>
     <h2 data-en="No garage. No waiting." data-fr="Pas de garage. Pas d'attente."></h2>
     <p data-en="Skip the garage. We bring everything needed to perform a full synthetic oil and filter change right where you are." data-fr="Oubliez le garage. On apporte tout ce qu'il faut pour effectuer un changement d'huile synthétique et filtre complet là où vous êtes."></p>
+    <ul class="service-list">
+      <li data-en="Synthetic oil change" data-fr="Changement d'huile synthétique"></li>
+      <li data-en="Oil filter change" data-fr="Changement de filtre à huile"></li>
+      <li data-en="Windshield washer fluid top-up" data-fr="Remplissage du lave-glace"></li>
+      <li data-en="Eco-friendly used oil disposal" data-fr="Disposition écologique de l'huile usée"></li>
+    </ul>
   </div>
 </section>
 
