@@ -78,6 +78,135 @@
       color: #fff;
     }
 
+    /* ── SEASON CLOSED ── */
+    .season-closed {
+      background: #1A1A1A;
+      color: #fff;
+      text-align: center;
+      padding: 48px 32px;
+    }
+    .season-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .season-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .season-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── REVIEWS CAROUSEL ── */
+    .reviews-section {
+      padding: 72px 32px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .reviews-section .section-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .reviews-carousel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      min-height: 220px;
+    }
+    .reviews-track-wrapper {
+      overflow: hidden;
+      flex: 1;
+    }
+    .reviews-track {
+      display: flex;
+      align-items: center;
+      transition: transform 0.35s ease;
+    }
+    .review-card {
+      min-width: 100%;
+      background: var(--section-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-sizing: border-box;
+    }
+    .review-stars {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+    .review-text {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .review-author {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+    .review-source {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+    .carousel-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text-mid);
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .carousel-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background 0.2s;
+    }
+    .dot.active {
+      background: var(--gold);
+    }
+
+    @media (max-width: 600px) {
+      .season-closed { padding: 40px 20px; }
+      .reviews-section { padding: 56px 20px; }
+      .review-card { padding: 20px; }
+      .carousel-btn { width: 34px; height: 34px; font-size: 1rem; }
+    }
+
     /* ── HERO ── */
     .hero {
       padding: 96px 32px 80px;
@@ -432,6 +561,13 @@
   <button class="lang-toggle" id="langBtn" onclick="toggleLang()">FR</button>
 </nav>
 
+<!-- SEASON CLOSED BANNER -->
+<section class="season-closed">
+  <p class="season-tag" data-en="Season 2026 — Closed" data-fr="Saison 2026 — Fermée"></p>
+  <h2 class="season-title" data-en="See you Summer 2027" data-fr="À l'été 2027"></h2>
+  <p class="season-sub" data-en="Thank you for a great first season in Greater Moncton." data-fr="Merci pour une première belle saison dans le Grand Moncton."></p>
+</section>
+
 <!-- HERO -->
 <section class="hero" style="padding-top:80px;padding-bottom:72px;">
 
@@ -441,6 +577,121 @@
 
   <div class="btn-book">
     <a href="#contact" class="btn-book-link" data-en="Book Now" data-fr="Contactez-nous"></a>
+  </div>
+</section>
+
+<!-- REVIEWS CAROUSEL -->
+<section class="reviews-section">
+  <div class="section-inner">
+    <p class="section-label" data-en="What Our Clients Say" data-fr="Ce que nos clients disent"></p>
+    <h2 data-en="Trusted by drivers in Greater Moncton." data-fr="La confiance des conducteurs du Grand Moncton."></h2>
+    <div class="reviews-carousel">
+      <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)" aria-label="Previous">&#8592;</button>
+      <div class="reviews-track-wrapper">
+        <div class="reviews-track" id="reviewsTrack">
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Great service! Nate was kind, worked quickly and a pleasure to deal with." data-fr="Super service ! Nate était gentil, a travaillé rapidement et était un plaisir avec qui faire affaire."></p>
+            <div class="review-author">Crystal Morrison</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Great service for a great price! Messaged at 7:30 AM and by 10:30 AM I had my oil change completed directly at home! Pricing was extremely reasonable." data-fr="Super service pour un super prix ! J'ai envoyé un message à 7h30 et à 10h30 ma vidange était faite à domicile ! Prix extrêmement raisonnables."></p>
+            <div class="review-author">Alexander Aubé</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Cannot recommend this guy enough. Showed up ahead of time, was professional and took great care of my car and property. Not a drop of oil spilt anywhere. I find myself always trying to find ways to save time and make life a little easier. This guy definitely did that and pricing is very reasonable." data-fr="Je ne peux pas le recommander assez. Arrivé à l'avance, professionnel et a pris grand soin de ma voiture et de ma propriété. Pas une goutte d'huile renversée. Le prix est très raisonnable."></p>
+            <div class="review-author">George Kennedy</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Great service and reasonable price, thank you for the service." data-fr="Super service et prix raisonnable, merci pour le service."></p>
+            <div class="review-author">Hamza Alaoui</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Great services!" data-fr="Super service !"></p>
+            <div class="review-author">Alex McGrath</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Really good service, great price." data-fr="Très bon service, excellent prix."></p>
+            <div class="review-author">Philippe Collette</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Great service, on time, good price. Would recommend." data-fr="Super service, ponctuel, bon prix. Je recommande."></p>
+            <div class="review-author">Justin Gendron</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Easy, convenient and overall satisfied! I highly recommend." data-fr="Facile, pratique et satisfait ! Je recommande fortement."></p>
+            <div class="review-author">Cole Cormier</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="This entrepreneur showed up at my residence ready to serve. Asked for my keys and told me enjoy your afternoon, I'll take care of your vehicle. Was very polite and courteous. More than reasonable on pricing and pictures to show the underneath before and after the job was completed. Job got completed while I enjoyed the outdoors. Would recommend him to anybody I know." data-fr="Cet entrepreneur s'est présenté chez moi prêt à travailler. Il a pris mes clés et m'a dit de profiter de mon après-midi. Très poli et courtois. Prix plus que raisonnables et des photos avant/après pour montrer le travail. Je le recommande à tout le monde."></p>
+            <div class="review-author">Mike LeBel</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="Fast, reliable, and professional service! They came to my house, did my oil change, barely noticed they were there, and the job was done. It was super convenient — I booked the appointment around my schedule. Would definitely recommend over any shops around town. Extremely satisfied with their quality service." data-fr="Service rapide, fiable et professionnel ! Ils sont venus chez moi, j'ai à peine remarqué leur présence et la job était faite. Super pratique — j'ai réservé selon mon horaire. Je recommande fortement par rapport aux garages en ville."></p>
+            <div class="review-author">Gab Vanier</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="So so SO convenient — he came right to my house, so I didn't have to waste time driving to a shop or sitting in a waiting room. The service was quick, professional, and hassle-free from start to finish. Nathael was friendly, knowledgeable, and made the whole process incredibly easy. If you're looking to save time without sacrificing quality, I highly recommend." data-fr="Tellement pratique — il est venu directement chez moi, sans perdre de temps à conduire jusqu'à un garage. Service rapide, professionnel et sans tracas du début à la fin. Je recommande fortement."></p>
+            <div class="review-author">Kathy Poirier</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" data-en="I had an incredible experience! He came to do my oil change while I was out golfing, and by the time I got back, everything was finished. I didn't have to change my schedule at all, he worked around my availability, which made the whole process so convenient. I also received my receipt by email right after the job was completed, which was a nice professional touch. I would 100% recommend this service to anyone looking for convenience, professionalism, and excellent customer service!" data-fr="J'ai eu une expérience incroyable ! Il est venu faire ma vidange pendant que je jouais au golf, et à mon retour tout était terminé. Je n'ai pas eu à changer mon horaire, il s'est adapté à ma disponibilité. J'ai aussi reçu mon reçu par courriel — une belle touche professionnelle. Je recommande à 100 % !"></p>
+            <div class="review-author">Olivier Hache</div>
+            <div class="review-source">Google Review</div>
+          </div>
+
+        </div>
+      </div>
+      <button class="carousel-btn carousel-next" onclick="moveCarousel(1)" aria-label="Next">&#8594;</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
   </div>
 </section>
 
@@ -609,6 +860,18 @@
 
   function toggleLang() {
     setLang(lang === 'en' ? 'fr' : 'en');
+  }
+
+  // Carousel
+  let currentSlide = 0;
+  function moveCarousel(dir) {
+    const track = document.getElementById('reviewsTrack');
+    const cards = track.querySelectorAll('.review-card');
+    const dots = document.querySelectorAll('.dot');
+    currentSlide = (currentSlide + dir + cards.length) % cards.length;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    setLang(lang);
   }
 
   // Init English
