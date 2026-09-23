@@ -111,14 +111,6 @@
     .reviews-section {
       padding: 72px 32px;
       background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .reviews-section .section-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
     }
     .reviews-carousel {
       display: flex;
@@ -126,23 +118,30 @@
       gap: 12px;
       margin-top: 32px;
       min-height: 220px;
+      max-width: 100%;
+      overflow: hidden;
     }
     .reviews-track-wrapper {
       overflow: hidden;
       flex: 1;
+      min-width: 0;
+      max-width: 100%;
     }
     .reviews-track {
       display: flex;
       align-items: center;
       transition: transform 0.35s ease;
+      will-change: transform;
     }
     .review-card {
       min-width: 100%;
+      max-width: 100%;
       background: var(--section-alt);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 28px 32px;
       box-sizing: border-box;
+      overflow: hidden;
     }
     .review-stars {
       color: var(--gold);
@@ -202,24 +201,14 @@
 
     @media (max-width: 600px) {
       .season-closed { padding: 40px 20px; }
-      .reviews-section {
-        padding: 0 20px;
-        min-height: 100svh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .reviews-section .section-inner {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .review-card { padding: 18px 16px; }
-      .review-text { font-size: 0.92rem; }
-      .carousel-btn { display: none; }
+      .reviews-section { padding: 48px 16px; }
       .reviews-carousel { gap: 0; min-height: unset; }
-      .reviews-track-wrapper { width: 100%; }
-      .carousel-dots { gap: 6px; margin-top: 16px; }
+      .reviews-track-wrapper { width: 100%; max-width: 100%; overflow: hidden; }
+      .review-card { padding: 16px; width: 100%; max-width: 100%; box-sizing: border-box; }
+      .review-text { font-size: 0.88rem; line-height: 1.6; }
+      .review-stars { font-size: 1rem; }
+      .carousel-btn { display: none; }
+      .carousel-dots { gap: 5px; margin-top: 14px; }
       .dot { width: 6px; height: 6px; }
     }
 
