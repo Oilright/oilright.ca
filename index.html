@@ -113,35 +113,30 @@
       background: var(--bg);
     }
     .reviews-carousel {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      position: relative;
       margin-top: 32px;
-      min-height: 220px;
-      max-width: 100%;
-      overflow: hidden;
     }
     .reviews-track-wrapper {
-      overflow: hidden;
-      flex: 1;
-      min-width: 0;
-      max-width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
+    .reviews-track-wrapper::-webkit-scrollbar { display: none; }
     .reviews-track {
       display: flex;
-      align-items: center;
-      transition: transform 0.35s ease;
-      will-change: transform;
+      width: 100%;
     }
     .review-card {
-      min-width: 100%;
-      max-width: 100%;
+      flex: 0 0 100%;
+      width: 100%;
+      scroll-snap-align: start;
       background: var(--section-alt);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 28px 32px;
       box-sizing: border-box;
-      overflow: hidden;
     }
     .review-stars {
       color: var(--gold);
@@ -166,6 +161,13 @@
       color: var(--text-light);
       margin-top: 2px;
     }
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
     .carousel-btn {
       background: none;
       border: 1.5px solid var(--border);
@@ -178,15 +180,11 @@
       flex-shrink: 0;
       transition: border-color 0.2s, color 0.2s;
     }
-    .carousel-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
+    .carousel-btn:hover { border-color: var(--gold); color: var(--gold); }
     .carousel-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 20px;
     }
     .dot {
       width: 8px;
@@ -194,21 +192,14 @@
       border-radius: 50%;
       background: var(--border);
       transition: background 0.2s;
+      cursor: pointer;
     }
-    .dot.active {
-      background: var(--gold);
-    }
-
+    .dot.active { background: var(--gold); }
     @media (max-width: 600px) {
-      .season-closed { padding: 40px 20px; }
       .reviews-section { padding: 48px 16px; }
-      .reviews-carousel { gap: 0; min-height: unset; }
-      .reviews-track-wrapper { width: 100%; max-width: 100%; overflow: hidden; }
-      .review-card { padding: 16px; width: 100%; max-width: 100%; box-sizing: border-box; }
-      .review-text { font-size: 0.88rem; line-height: 1.6; }
-      .review-stars { font-size: 1rem; }
-      .carousel-btn { display: none; }
-      .carousel-dots { gap: 5px; margin-top: 14px; }
+      .review-card { padding: 20px 16px; }
+      .review-text { font-size: 0.92rem; }
+      .carousel-btn { width: 34px; height: 34px; font-size: 1rem; }
       .dot { width: 6px; height: 6px; }
     }
 
@@ -591,8 +582,7 @@
     <p class="section-label" data-en="What Our Clients Say" data-fr="Ce que nos clients disent"></p>
     <h2 data-en="Trusted by drivers in Greater Moncton." data-fr="La confiance des conducteurs du Grand Moncton."></h2>
     <div class="reviews-carousel">
-      <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)" aria-label="Previous">&#8592;</button>
-      <div class="reviews-track-wrapper">
+      <div class="reviews-track-wrapper" id="reviewsWrapper">
         <div class="reviews-track" id="reviewsTrack">
 
           <div class="review-card">
@@ -681,9 +671,9 @@
 
         </div>
       </div>
-      <button class="carousel-btn carousel-next" onclick="moveCarousel(1)" aria-label="Next">&#8594;</button>
-    </div>
-    <div class="carousel-dots" id="carouselDots">
+      <div class="carousel-nav">
+        <button class="carousel-btn" onclick="moveCarousel(-1)" aria-label="Previous">&#8592;</button>
+        <div class="carousel-dots" id="carouselDots">
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
@@ -696,12 +686,15 @@
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
+        </div>
+        <button class="carousel-btn" onclick="moveCarousel(1)" aria-label="Next">&#8594;</button>
+      </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WHY OILRIGHT -->
-<section class="alt-bg" id="why-oilright">
   <div class="section-inner" style="max-width:760px;">
     <p class="section-label" data-en="Why OilRight" data-fr="Pourquoi OilRight"></p>
     <h2 data-en="A different kind of service." data-fr="Un service différent."></h2>
@@ -867,42 +860,39 @@
     setLang(lang === 'en' ? 'fr' : 'en');
   }
 
-  // Carousel
+  // Carousel - scroll snap based
   let currentSlide = 0;
-  let touchStartX = 0;
-  let touchEndX = 0;
+  const wrapper = document.getElementById('reviewsWrapper');
+  const track = document.getElementById('reviewsTrack');
+
+  function updateDots() {
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  }
 
   function moveCarousel(dir) {
-    const track = document.getElementById('reviewsTrack');
-    const wrapper = track.parentElement;
     const cards = track.querySelectorAll('.review-card');
-    const dots = document.querySelectorAll('.dot');
     currentSlide = (currentSlide + dir + cards.length) % cards.length;
-    const slideWidth = wrapper.offsetWidth;
-    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    const cardWidth = wrapper.offsetWidth;
+    wrapper.scrollTo({ left: currentSlide * cardWidth, behavior: 'smooth' });
+    updateDots();
     setLang(lang);
   }
 
-  const track = document.getElementById('reviewsTrack');
-  track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-  track.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 40) moveCarousel(diff > 0 ? 1 : -1);
+  // Update dot on native swipe scroll
+  wrapper.addEventListener('scroll', () => {
+    const cardWidth = wrapper.offsetWidth;
+    currentSlide = Math.round(wrapper.scrollLeft / cardWidth);
+    updateDots();
   }, { passive: true });
 
-  // Set card widths to wrapper pixel width
-  function setCardWidths() {
-    const track = document.getElementById('reviewsTrack');
-    const wrapper = track.parentElement;
-    const cards = track.querySelectorAll('.review-card');
-    const w = wrapper.offsetWidth;
-    cards.forEach(c => c.style.minWidth = w + 'px');
-    track.style.transform = `translateX(-${currentSlide * w}px)`;
-  }
-  setCardWidths();
-  window.addEventListener('resize', setCardWidths);
+  // Dot click navigation
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      currentSlide = i;
+      wrapper.scrollTo({ left: i * wrapper.offsetWidth, behavior: 'smooth' });
+      updateDots();
+    });
+  });
 
   // Init English
   setLang('en');
