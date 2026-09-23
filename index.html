@@ -205,6 +205,10 @@
       .reviews-section { padding: 56px 20px; }
       .review-card { padding: 20px; }
       .carousel-btn { width: 34px; height: 34px; font-size: 1rem; }
+      .reviews-carousel { gap: 8px; min-height: unset; }
+      .review-text { font-size: 0.95rem; }
+      .carousel-dots { gap: 6px; }
+      .dot { width: 6px; height: 6px; }
     }
 
     /* ── HERO ── */
@@ -864,6 +868,9 @@
 
   // Carousel
   let currentSlide = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
   function moveCarousel(dir) {
     const track = document.getElementById('reviewsTrack');
     const cards = track.querySelectorAll('.review-card');
@@ -873,6 +880,14 @@
     dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
     setLang(lang);
   }
+
+  const track = document.getElementById('reviewsTrack');
+  track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) moveCarousel(diff > 0 ? 1 : -1);
+  }, { passive: true });
 
   // Init English
   setLang('en');
