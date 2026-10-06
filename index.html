@@ -566,6 +566,31 @@
   <p class="season-tag" data-en="Season 2026 — Closed" data-fr="Saison 2026 — Fermée"></p>
   <h2 class="season-title" data-en="See you Summer 2027" data-fr="À l'été 2027"></h2>
   <p class="season-sub" data-en="Thank you for a great first season in Greater Moncton." data-fr="Merci pour une première belle saison dans le Grand Moncton."></p>
+
+  <div style="margin-top:28px;">
+    <p style="color:rgba(255,255,255,0.55); font-size:1rem; margin-bottom:14px;" data-en="Want to be the first to know when we're back?" data-fr="Vous voulez être parmi les premiers à savoir quand on revient ?">Want to be the first to know when we're back?</p>
+    <button id="discount-toggle" onclick="toggleDiscount()" style="background:none; border:1.5px solid var(--gold); color:var(--gold); padding:12px 24px; border-radius:8px; font-size:0.95rem; font-weight:600; cursor:pointer; font-family:inherit;" data-en="🎁 Get 10% off next season →" data-fr="🎁 Obtenez 10 % de rabais la prochaine saison →">🎁 Get 10% off next season →</button>
+
+    <div id="discount-form-wrap" style="display:none; margin-top:24px; max-width:480px; margin-left:auto; margin-right:auto;">
+      <p style="color:rgba(255,255,255,0.55); font-size:0.95rem; margin-bottom:20px;" data-en="Be part of our exclusive customer list — you'll be notified as soon as we're back for Summer 2027, and your 10% discount will be waiting." data-fr="Faites partie de notre liste exclusive — vous serez avisé dès notre retour pour l'été 2027, et votre rabais de 10 % vous attendra.">Be part of our exclusive customer list — you'll be notified as soon as we're back for Summer 2027, and your 10% discount will be waiting.</p>
+      <div id="signup-form">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <input id="sig-name" type="text" placeholder="Full name / Nom complet" style="padding:14px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:1rem; font-family:inherit; outline:none;" />
+          <input id="sig-phone" type="tel" placeholder="Phone / Téléphone" style="padding:14px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:1rem; font-family:inherit; outline:none;" />
+          <input id="sig-email" type="email" placeholder="Email" style="padding:14px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:1rem; font-family:inherit; outline:none;" />
+          <select id="sig-area" style="padding:14px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:#2a2a2a; color:#fff; font-size:1rem; font-family:inherit; outline:none;">
+            <option value="" disabled selected>Select your area / Choisissez votre secteur</option>
+            <option value="Moncton">Moncton</option>
+            <option value="Dieppe">Dieppe</option>
+            <option value="Riverview">Riverview</option>
+          </select>
+          <button id="sig-btn" onclick="submitSignup()" style="background:var(--gold); color:#fff; border:none; padding:16px; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; font-family:inherit;" data-en="Claim My 10% Discount" data-fr="Réclamer mon rabais de 10 %">Claim My 10% Discount</button>
+          <p id="sig-error" style="color:#ff6b6b; font-size:0.9rem; display:none;"></p>
+        </div>
+      </div>
+      <div id="signup-success" style="display:none;"></div>
+    </div>
+  </div>
 </section>
 
 <!-- HERO -->
@@ -852,6 +877,7 @@
 
   function setLang(l) {
     lang = l;
+    window.__lang = l;
     document.documentElement.lang = l;
     document.getElementById('langBtn').textContent = l === 'en' ? 'FR' : 'EN';
 
@@ -899,9 +925,169 @@
     });
   });
 
+  // Discount form toggle
+  function toggleDiscount() {
+    const wrap = document.getElementById('discount-form-wrap');
+    const btn = document.getElementById('discount-toggle');
+    const open = wrap.style.display === 'none';
+    wrap.style.display = open ? 'block' : 'none';
+    btn.textContent = open
+      ? (lang === 'fr' ? '✕ Fermer' : '✕ Close')
+      : (lang === 'fr' ? '🎁 Obtenez 10 % de rabais la prochaine saison →' : '🎁 Get 10% off next season →');
+  }
+  window.toggleDiscount = toggleDiscount;
+
+  // Auto popup after 1 second — only if not already signed up
+  function closeDiscountPopupAuto() {
+    document.getElementById('discount-popup-auto').style.display = 'none';
+  }
+  window.closeDiscountPopupAuto = closeDiscountPopupAuto;
+
+  if (localStorage.getItem('oilright-signup-done')) {
+    const toggle = document.getElementById('discount-toggle');
+    const teaser = toggle && toggle.previousElementSibling;
+    if (toggle) toggle.style.display = 'none';
+    if (teaser) teaser.style.display = 'none';
+  } else {
+    setTimeout(() => {
+      const popup = document.getElementById('discount-popup-auto');
+      if (popup) popup.style.display = 'flex';
+    }, 1000);
+  }
+
   // Init English
   setLang('en');
 </script>
 
+<!-- DISCOUNT AUTO POPUP -->
+<div id="discount-popup-auto" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:998; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#1A1A1A; border-radius:16px; padding:36px 28px; max-width:420px; width:100%; text-align:center; position:relative;">
+    <button onclick="closeDiscountPopupAuto()" style="position:absolute; top:14px; right:16px; background:none; border:none; color:rgba(255,255,255,0.5); font-size:1.3rem; cursor:pointer;">✕</button>
+    <p style="font-size:0.75rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px;" data-en="Early Access — Summer 2027" data-fr="Accès anticipé — Été 2027">Early Access — Summer 2027</p>
+    <h3 style="color:#fff; font-size:1.3rem; font-weight:700; margin-bottom:12px;" data-en="Want to be the first to know when we're back?" data-fr="Vous voulez être parmi les premiers à savoir quand on revient ?">Want to be the first to know when we're back?</h3>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem; margin-bottom:24px;" data-en="Be part of our exclusive customer list — you'll be notified as soon as we're back for Summer 2027, and your 10% discount will be waiting." data-fr="Faites partie de notre liste exclusive — vous serez avisé dès notre retour pour l'été 2027, et votre rabais de 10 % vous attendra.">Be part of our exclusive customer list — you'll be notified as soon as we're back for Summer 2027, and your 10% discount will be waiting.</p>
+    <div style="display:flex; flex-direction:column; gap:12px;" id="auto-signup-form">
+      <input id="auto-sig-name" type="text" placeholder="Full name / Nom complet" style="padding:13px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:0.95rem; font-family:inherit; outline:none;" />
+      <input id="auto-sig-phone" type="tel" placeholder="Phone / Téléphone" style="padding:13px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:0.95rem; font-family:inherit; outline:none;" />
+      <input id="auto-sig-email" type="email" placeholder="Email" style="padding:13px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:#fff; font-size:0.95rem; font-family:inherit; outline:none;" />
+      <select id="auto-sig-area" style="padding:13px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:#2a2a2a; color:#fff; font-size:0.95rem; font-family:inherit; outline:none;">
+        <option value="" disabled selected>Select your area / Choisissez votre secteur</option>
+        <option value="Moncton">Moncton</option>
+        <option value="Dieppe">Dieppe</option>
+        <option value="Riverview">Riverview</option>
+      </select>
+      <button id="auto-sig-btn" onclick="submitAutoSignup()" style="background:var(--gold); color:#fff; border:none; padding:14px; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; font-family:inherit;" data-en="Claim My 10% Discount" data-fr="Réclamer mon rabais de 10 %">Claim My 10% Discount</button>
+      <p id="auto-sig-error" style="color:#ff6b6b; font-size:0.85rem; display:none;"></p>
+    </div>
+    <button onclick="closeDiscountPopupAuto()" style="margin-top:16px; background:none; border:none; color:rgba(255,255,255,0.35); font-size:0.85rem; cursor:pointer; font-family:inherit;" data-en="No thanks" data-fr="Non merci">No thanks</button>
+  </div>
+</div>
+
+<!-- DISCOUNT SUCCESS POPUP -->
+<div id="discount-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:16px; padding:40px 32px; max-width:400px; width:90%; text-align:center; position:relative;">
+    <div style="font-size:3rem; margin-bottom:16px;">✅</div>
+    <h3 style="font-size:1.2rem; font-weight:700; color:#1a1a1a; margin-bottom:12px;" data-en="Your information is saved!" data-fr="Vos informations sont enregistrées !">Your information is saved!</h3>
+    <p style="color:#666; font-size:0.95rem; line-height:1.6;" data-en="We will contact you Summer 2027 to book your appointment and apply your 10% discount." data-fr="Nous vous contacterons à l'été 2027 pour prendre votre rendez-vous et appliquer votre rabais de 10 %.">We will contact you Summer 2027 to book your appointment and apply your 10% discount.</p>
+    <button onclick="document.getElementById('discount-popup').style.display='none';" style="margin-top:24px; background:var(--gold); color:#fff; border:none; padding:12px 32px; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; font-family:inherit;" data-en="Got it!" data-fr="Compris !">Got it!</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const app = initializeApp({
+    apiKey: "AIzaSyBbmCXZDyocrXlmnqB9sbaWpuZWGsCcOlk",
+    authDomain: "oilright.firebaseapp.com",
+    databaseURL: "https://oilright-default-rtdb.firebaseio.com",
+    projectId: "oilright",
+    storageBucket: "oilright.firebasestorage.app",
+    messagingSenderId: "256978778968",
+    appId: "1:256978778968:web:f35cbc6ed1cb20a0b4432d"
+  });
+  const db = getFirestore(app);
+
+  window.submitAutoSignup = async function() {
+    const name = document.getElementById('auto-sig-name').value.trim();
+    const phone = document.getElementById('auto-sig-phone').value.trim();
+    const email = document.getElementById('auto-sig-email').value.trim();
+    const area = document.getElementById('auto-sig-area').value;
+    const errEl = document.getElementById('auto-sig-error');
+    errEl.style.display = 'none';
+
+    if (!name || !phone || !email || !area) {
+      errEl.textContent = 'Please fill in all fields. / Veuillez remplir tous les champs.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('auto-sig-btn');
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    try {
+      await addDoc(collection(db, '2027-discount-signups'), {
+        name, phone, email, area,
+        createdAt: serverTimestamp()
+      });
+      localStorage.setItem('oilright-signup-done', '1');
+      document.getElementById('discount-popup-auto').style.display = 'none';
+      const popup = document.getElementById('discount-popup');
+      popup.style.display = 'flex';
+      document.querySelectorAll('#discount-popup [data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + (window.__lang || 'en'));
+        if (val) el.innerHTML = val;
+      });
+    } catch (e) {
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.style.display = 'block';
+      btn.textContent = document.documentElement.lang === 'fr' ? 'Réclamer mon rabais de 10 %' : 'Claim My 10% Discount';
+      btn.disabled = false;
+    }
+  };
+
+  window.submitSignup = async function() {
+    const name = document.getElementById('sig-name').value.trim();
+    const phone = document.getElementById('sig-phone').value.trim();
+    const email = document.getElementById('sig-email').value.trim();
+    const area = document.getElementById('sig-area').value;
+    const errEl = document.getElementById('sig-error');
+
+    errEl.style.display = 'none';
+
+    if (!name || !phone || !email || !area) {
+      errEl.textContent = 'Please fill in all fields. / Veuillez remplir tous les champs.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('sig-btn');
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    try {
+      await addDoc(collection(db, '2027-discount-signups'), {
+        name, phone, email, area,
+        createdAt: serverTimestamp()
+      });
+      localStorage.setItem('oilright-signup-done', '1');
+      document.getElementById('discount-form-wrap').style.display = 'none';
+      document.getElementById('discount-toggle').style.display = 'none';
+      const popup = document.getElementById('discount-popup');
+      popup.style.display = 'flex';
+      // Re-apply lang to popup content
+      document.querySelectorAll('#discount-popup [data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + (window.__lang || 'en'));
+        if (val) el.innerHTML = val;
+      });
+    } catch (e) {
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.style.display = 'block';
+      btn.textContent = document.documentElement.lang === 'fr' ? 'Réclamer mon rabais de 10 %' : 'Claim My 10% Discount';
+      btn.disabled = false;
+    }
+  };
+</script>
 </body>
 </html>
